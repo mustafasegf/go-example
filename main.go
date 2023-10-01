@@ -12,8 +12,6 @@ func main() {
 		fmt.Fprintf(w, "hello world\n")
 	})
 
-
-
 	fmt.Println("Server is running at http://localhost:8080")
 	err := http.ListenAndServe(":80", nil)
 	if err != nil {
