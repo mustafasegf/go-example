@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	// test
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		log.Printf("Request received from %s\n", req.RemoteAddr)
 		fmt.Fprintf(w, "hello world\n")
 	})
 
@@ -18,7 +18,8 @@ func main() {
 		port = "80"
 	}
 
-	fmt.Println("Server is running at http://localhost:8080")
+	log.Printf("Server is running at :%s\n", port)
+
 	err := http.ListenAndServe(fmt.Sprint(":", port), nil)
 	if err != nil {
 		log.Fatal(err)
