@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// test
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		log.Printf("Request received from %s\n", req.RemoteAddr)
 		fmt.Fprintf(w, "hello world\n")
