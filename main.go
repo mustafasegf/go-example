@@ -18,14 +18,14 @@ func main() {
 
 		poolConfig, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 		if err != nil {
-			log.Fatalln("Unable to parse DATABASE_URL:", err)
+			log.Println("Unable to parse DATABASE_URL:", err)
 			fmt.Fprintf(w, "Unable to parse DATABASE_URL: %s\n", err)
 			return
 		}
 
 		db, err := pgxpool.NewWithConfig(context.Background(), poolConfig)
 		if err != nil {
-			log.Fatalln("Unable to create connection pool:", err)
+			log.Println("Unable to create connection pool:", err)
 			fmt.Fprintf(w, "Unable to create connection pool: %s\n", err)
 			return
 		}
@@ -33,13 +33,21 @@ func main() {
 		defer db.Close()
 
 		if err := db.QueryRow(context.Background(), "SELECT 1").Scan(new(int)); err != nil {
-			log.Fatalln("Unable to connect to database:", err)
+			log.Println("Unable to connect to database:", err)
 			fmt.Fprintf(w, "Unable to connect to database: %s\n", err)
 			return
 		}
 
-		fmt.Fprintf(w, "hello world!!! brilan\n")
+		fmt.Fprintf(w, "hello world!!!\n")
 	})
+
+	http.HandleFunc("/db_url", func(w http.ResponseWriter, req *http.Request) {
+		db_url := os.Getenv("DATABASE_URL")
+		fmt.Fprintf(w, "DATABASE_URL: %s\n", db_url)
+	})
+
+	db_url := os.Getenv("DATABASE_URL")
+	fmt.Println(db_url)
 
 	port := os.Getenv("PORT")
 	if port == "" {
