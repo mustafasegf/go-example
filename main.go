@@ -12,7 +12,6 @@ import (
 
 func main() {
 	// test
-
 	poolConfig, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Println("Unable to parse DATABASE_URL:", err)
