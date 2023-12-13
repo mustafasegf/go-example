@@ -49,7 +49,7 @@ func main() {
 
 	log.Printf("Server is running at :%s\n", port)
 
-	err := http.ListenAndServe(fmt.Sprint(":", port), nil)
+	err = http.ListenAndServe(fmt.Sprint(":", port), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
